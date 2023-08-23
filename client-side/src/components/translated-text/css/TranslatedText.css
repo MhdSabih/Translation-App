@@ -1,0 +1,16 @@
+/* TranslatedText.css */
+
+.Translated-text-area {
+  background-color: #0f0b2b;
+  color: white;
+  font-family: ieb, sans-serif;
+  margin-top: 2rem;
+  padding: 20vh;
+  margin-left: 5rem;
+  width: 20vw;
+}
+
+.main-heading {
+  font-size: 24px;
+  margin-bottom: 20px;
+}

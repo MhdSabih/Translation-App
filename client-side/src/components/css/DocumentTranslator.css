@@ -1,0 +1,62 @@
+/* .translator-area {
+    background-color: saddlebrown;
+}
+.main-translator {
+    background-color: aqua;
+} */
+
+.main-translator-heading {
+  font-family: ieb, sans-serif;
+  font-size: 2rem;
+  line-height: var(--h1-lh);
+  display: block;
+  background: linear-gradient(90deg, rgb(153, 0, 255), rgb(255, 255, 255)),
+    linear-gradient(98.94deg, rgb(0, 188, 255) 0.87%, rgb(129, 75, 246) 57.85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.icon-section {
+  margin: 3rem auto 2rem auto;
+}
+
+.icon {
+  font-size: 5rem; /* Adjust the size as needed */
+  color: #3498db; /* Customize the color */
+  margin: 3rem auto; /* Space between icon and button */
+}
+.upload-span {
+  color: white;
+  font-family: ieb, sans-serif;
+  display: block;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.uploading-area {
+  text-align: center;
+  padding: 20px;
+}
+
+.upload-input {
+  /* position: relative; */
+  margin-top: 2rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.custom-upload-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-upload-button:hover {
+  background-color: #2980b9;
+}

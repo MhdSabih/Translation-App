@@ -1,0 +1,50 @@
+.navbar {
+  background: #0f0b2b;
+
+  padding-bottom: 2rem;
+}
+.nav-links {
+  list-style: none;
+  padding-right: 1rem;
+  padding-top: 2rem;
+  font-size: large;
+  font-family: ieb, sans-serif;
+  display: flex;
+  gap: 20px;
+}
+.app-title {
+  padding-left: 1rem;
+  padding-top: 2rem;
+  color: #6c648f;
+  font-size: x-large;
+  font-family: ieb, sans-serif;
+}
+.app-title :hover {
+  cursor: pointer;
+  font-family: ieb, sans-serif;
+  font-size: 1.5rem;
+  line-height: var(--h1-lh);
+  display: block;
+  background: linear-gradient(90deg, rgb(153, 0, 255), rgb(255, 255, 255)),
+    linear-gradient(98.94deg, rgb(0, 188, 255) 0.87%, rgb(129, 75, 246) 57.85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.nav-links a {
+  text-decoration: none;
+  color: #6c648f;
+}
+.nav-links :hover {
+  font-family: ieb, sans-serif;
+  font-size: large;
+  line-height: var(--h1-lh);
+  display: block;
+  background: linear-gradient(90deg, rgb(153, 0, 255), rgb(255, 255, 255)),
+    linear-gradient(98.94deg, rgb(0, 188, 255) 0.87%, rgb(129, 75, 246) 57.85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.nav-elements {
+  display: flex;
+  justify-content: space-between;
+}

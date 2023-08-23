@@ -1,0 +1,103 @@
+.upload-main-area {
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* height: 100vh;  */
+}
+
+.main-area {
+  display: flex;
+  align-items: center;
+}
+
+.sub-img-render-area {
+  flex: 1;
+  padding: 20px;
+  max-width: 40vw;
+}
+
+.uploaded-file {
+  max-width: 70%;
+  height: auto;
+}
+
+.img-side-area {
+  flex: 1;
+  /* z-index: 1; */
+  /* padding: 20px; */
+
+  /* background-color: #f7f7f7; */
+}
+
+.border {
+  border-right: 2px solid #00a7e9;
+  height: 90%;
+  margin: 0 20px; /* Adjust the margin as needed */
+}
+.img-inside {
+  background-color: #0F0B2B;
+  color: white;
+  font-family: ieb, sans-serif;
+  padding: 20vh;
+  margin-right: 5rem;
+}
+.scan-btn button {
+  padding: 10px 20px;
+  margin-top: 20px;
+  font-size: 16px;
+  background-color: #814bf6;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.scan-btn button:hover {
+  background-color: #29b929;
+  transform: scale(1.05);
+}
+
+.scan-btn button :active {
+  background-color: #1f77b4;
+  transform: scale(0.95);
+}
+.remove-btn button {
+  padding: 10px 20px;
+  margin-top: 20px;
+  font-size: 16px;
+  background-color: #814bf6;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.remove-btn button:hover {
+  background-color: #c40808;
+  transform: scale(1.05);
+}
+
+.remove-btn button :active {
+  background-color: #1f77b4;
+  transform: scale(0.95);
+}
+.btn-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+.language-selector {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  color: white;
+  transition: border-color 0.3s ease;
+  outline: none;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.language-selector:hover {
+  border-color: #00a7e9;
+}

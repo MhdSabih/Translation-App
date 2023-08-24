@@ -20,7 +20,7 @@ const UploadedFile = ({ selectedFile, handleFileRemove }) => {
       data: { text },
     } = await worker.recognize(URL.createObjectURL(selectedFile));
     await worker.terminate();
-    // setExtractedText(text);
+    setExtractedText(text);
     // console.log(text);
   };
 

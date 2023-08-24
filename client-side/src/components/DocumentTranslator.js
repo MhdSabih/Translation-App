@@ -44,7 +44,7 @@ const DocumentTranslator = () => {
           </div>
           <div className="uploading-area">
             <span className="upload-span">
-              Upload a page below to translate (recommended .png, .jpg)
+              Upload a file below to translate (recommended .png, .jpg)
             </span>
             <div className="upload-input">
               <input

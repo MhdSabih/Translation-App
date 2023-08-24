@@ -35,7 +35,7 @@ const DocumentTranslator = () => {
       ) : (
         <div className="main-translator">
           <h2 className="main-translator-heading">
-            Get the new touch, Translate any Page
+            Get the new touch, Translate For Free!
           </h2>
           <div className="icon-section">
             <span className="icon">

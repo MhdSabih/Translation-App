@@ -47,7 +47,7 @@ const UploadedFile = ({ selectedFile, handleFileRemove }) => {
         `http://localhost:5000/api/translator`,
         requestBody
       );
-      setTranslatedText(data);
+      setTranslatedText(data.translation);
     } catch (error) {
       console.log("Error in fetching response", error);
     }

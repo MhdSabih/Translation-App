@@ -9,45 +9,57 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 const UploadedFile = ({ selectedFile, handleFileRemove }) => {
   const [numPages, setNumPages] = useState(null);
-  const [extractedText, setExtractedText] = useState(null);
+  // const [extractedText, setExtractedText] = useState(null);
+  const [translatedText, setTranslatedText] = useState(null);
+  const [targetLang, setTargetLang] = useState(null);
   const [onClickOfTranslate, setonClickOfTranslate] = useState(false);
 
-  const textToImage = async () => {
-    if(!selectedFile){
-      alert('select a file');
+  const textToImage = async (file) => {
+    try {
+      const worker = await createWorker();
+      setonClickOfTranslate(true);
+      await worker.loadLanguage("eng");
+      await worker.initialize("eng");
+  
+      const { data: { text } } = await worker.recognize(URL.createObjectURL(file));
+  
+      await worker.terminate();
+      return text;
+    } catch (error) {
+      console.error("Error in text extraction:", error);
+      throw error;
     }
-    else{
-    const worker = await createWorker();
-    setonClickOfTranslate(true);
-    await worker.loadLanguage("eng");
-    await worker.initialize("eng");
-    const {
-      data: { text },
-    } = await worker.recognize(URL.createObjectURL(selectedFile));
-    await worker.terminate();
-    setExtractedText(text);
-  }
-    // console.log(text);
   };
   const fetchResponse = async () => {
     try {
-      textToImage();
+      if(!selectedFile) {
+        alert("select a file!");
+        return;
+      }
+
+      const extractedText = await textToImage(selectedFile);
+
       const requestBody = {
         currentLang: extractedText,
-        targetLang: "",
+        targetLang: targetLang,
       };
       const { data } = await axios.post(
         `http://localhost:5000/api/translator`,
         requestBody
       );
+      setTranslatedText(data);
     } catch (error) {
-      console.log("Error in fetching response");
+      console.log("Error in fetching response", error);
     }
   };
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
   };
+
+  const handleTargetLangChange = (e) => {
+    setTargetLang(e.target.value);
+  }
   // console.log(extractedText);
   return (
     <div className="upload-main-area">
@@ -73,7 +85,7 @@ const UploadedFile = ({ selectedFile, handleFileRemove }) => {
         </div>
         <div className="border">{/* border */}</div>
         {onClickOfTranslate ? (
-          <TranslatedText extractedText={extractedText} />
+          <TranslatedText translatedText={translatedText} />
         ) : (
           <div className="img-side-area">
             <div className="img-inside">
@@ -82,6 +94,7 @@ const UploadedFile = ({ selectedFile, handleFileRemove }) => {
                 type="text"
                 placeholder="i.e. en"
                 className="language-selector"
+                onChange={handleTargetLangChange}
               />
               <div className="btn-container">
                 <div className="scan-btn">

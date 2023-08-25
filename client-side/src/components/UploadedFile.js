@@ -52,7 +52,7 @@ const UploadedFile = ({ selectedFile, handleFileRemove }) => {
         </div>
         <div className="border">{/* border */}</div>
         {onClickOfScan ? (
-          <TranslatedText />
+          <TranslatedText extractedText={extractedText} />
         ) : (
           <div className="img-side-area">
             <div className="img-inside">
@@ -65,14 +65,13 @@ const UploadedFile = ({ selectedFile, handleFileRemove }) => {
               <div className="btn-container">
                 <div className="scan-btn">
                   <button className="button" onClick={textToImage}>
-                    scan
+                    translate
                   </button>
                 </div>
                 <div className="remove-btn">
                   <button className="button-remove" onClick={handleFileRemove}>
                     remove
                   </button>
-                  {extractedText && <p>Extracted Text: {extractedText}</p>}
                 </div>
               </div>
             </div>

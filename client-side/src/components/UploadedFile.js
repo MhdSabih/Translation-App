@@ -3,6 +3,7 @@ import axios from "axios";
 import { createWorker } from "tesseract.js";
 import { Document, Page, pdfjs } from "react-pdf";
 import TranslatedText from "./translated-text/TranslatedText";
+import Spinner from "../loader/Spinner";
 import "./css/UploadedFile.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -12,6 +13,7 @@ const UploadedFile = ({ selectedFile, handleFileRemove }) => {
   const [translatedText, setTranslatedText] = useState(null);
   const [targetLang, setTargetLang] = useState(null);
   const [onClickOfTranslate, setonClickOfTranslate] = useState(false);
+  const [isLoad, setIsLoad] = useState(false);
 
   const textToImage = async (file) => {
     try {
@@ -19,9 +21,11 @@ const UploadedFile = ({ selectedFile, handleFileRemove }) => {
       setonClickOfTranslate(true);
       await worker.loadLanguage("eng");
       await worker.initialize("eng");
-  
-      const { data: { text } } = await worker.recognize(URL.createObjectURL(file));
-  
+
+      const {
+        data: { text },
+      } = await worker.recognize(URL.createObjectURL(file));
+
       await worker.terminate();
       return text;
     } catch (error) {
@@ -31,11 +35,11 @@ const UploadedFile = ({ selectedFile, handleFileRemove }) => {
   };
   const fetchResponse = async () => {
     try {
-      if(!selectedFile) {
+      if (!selectedFile) {
         alert("select a file!");
         return;
       }
-
+      setIsLoad(true);
       const extractedText = await textToImage(selectedFile);
 
       const requestBody = {
@@ -47,6 +51,7 @@ const UploadedFile = ({ selectedFile, handleFileRemove }) => {
         requestBody
       );
       setTranslatedText(data.translation);
+      setIsLoad(false);
     } catch (error) {
       console.log("Error in fetching response", error);
     }
@@ -58,7 +63,7 @@ const UploadedFile = ({ selectedFile, handleFileRemove }) => {
 
   const handleTargetLangChange = (e) => {
     setTargetLang(e.target.value);
-  }
+  };
   // console.log(extractedText);
   return (
     <div className="upload-main-area">
@@ -84,30 +89,37 @@ const UploadedFile = ({ selectedFile, handleFileRemove }) => {
         </div>
         <div className="border">{/* border */}</div>
         {onClickOfTranslate ? (
-          <TranslatedText translatedText={translatedText} />
+          <TranslatedText translatedText={translatedText} isLoad={isLoad}/>
         ) : (
           <div className="img-side-area">
-            <div className="img-inside">
-              <h1>Choose Language</h1>
-              <input
-                type="text"
-                placeholder="i.e. en"
-                className="language-selector"
-                onChange={handleTargetLangChange}
-              />
-              <div className="btn-container">
-                <div className="scan-btn">
-                  <button className="button" onClick={fetchResponse}>
-                    translate
-                  </button>
-                </div>
-                <div className="remove-btn">
-                  <button className="button-remove" onClick={handleFileRemove}>
-                    remove
-                  </button>
+            {isLoad ? (
+              <Spinner />
+            ) : (
+              <div className="img-inside">
+                <h1>Choose Language</h1>
+                <input
+                  type="text"
+                  placeholder="i.e. en"
+                  className="language-selector"
+                  onChange={handleTargetLangChange}
+                />
+                <div className="btn-container">
+                  <div className="scan-btn">
+                    <button className="button" onClick={fetchResponse}>
+                      translate
+                    </button>
+                  </div>
+                  <div className="remove-btn">
+                    <button
+                      className="button-remove"
+                      onClick={handleFileRemove}
+                    >
+                      remove
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         )}
       </div>

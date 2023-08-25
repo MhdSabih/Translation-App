@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./css/translatorArea.css";
 import LangModal from "./LangModal";
+import Spinner from "../loader/Spinner";
 
 const TranslatorArea = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState("");
   const [targetLang, setTargetLang] = useState("");
   const [onTranslate, setOnTranslate] = useState("");
+  const [isLoad, setIsLoad] = useState(false);
   // function to translate text
   const fetchResponse = async () => {
     try {
+      setIsLoad(true);
       const requestBody = {
         currentLang: currentLang || alert(`Enter current language value`),
         targetLang: targetLang || alert(`Choose target language`),
@@ -20,6 +23,7 @@ const TranslatorArea = () => {
         requestBody
       );
       setOnTranslate(data.translation);
+      setIsLoad(false);
     } catch (error) {
       console.log("Error fetching data", error);
     }
@@ -80,9 +84,13 @@ const TranslatorArea = () => {
         </div>
       </div>
       <div className="submit-button">
-        <button className="currentLang-button" onClick={onsubmit}>
-          submit
-        </button>
+        {isLoad ? (
+          <Spinner isLoad={isLoad} />
+        ) : (
+          <button className="currentLang-button" onClick={onsubmit}>
+            submit
+          </button>
+        )}
       </div>
     </div>
   );

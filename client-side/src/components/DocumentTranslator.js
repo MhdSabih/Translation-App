@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import "./css/DocumentTranslator.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import UploadedFile from "./UploadedFile";
+import Spinner from "../loader/Spinner";
 
 const DocumentTranslator = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-
+  const [isLoad, setIsLoad] = useState(false);
 
   const handleFileUpload = (e) => {
+    setIsLoad(true);
     const files = e.target.files;
     if (files && files.length > 0) {
       const file = files[0];
@@ -19,6 +21,7 @@ const DocumentTranslator = () => {
         file.type.includes("application/pdf")
       ) {
         setSelectedFile(file);
+        setIsLoad(false);
       }
     }
   };
@@ -46,18 +49,22 @@ const DocumentTranslator = () => {
             <span className="upload-span">
               Upload a file below (recommended .png, .jpg)
             </span>
-            <div className="upload-input">
-              <input
-                type="file"
-                id="file-input"
-                className="hidden"
-                accept=".png, .jpg, .pdf"
-                onChange={handleFileUpload}
-              />
-              <label htmlFor="file-input" className="custom-upload-button">
-                Choose File
-              </label>
-            </div>
+            {isLoad ? (
+              <Spinner isLoad={isLoad} />
+            ) : (
+              <div className="upload-input">
+                <input
+                  type="file"
+                  id="file-input"
+                  className="hidden"
+                  accept=".png, .jpg, .pdf"
+                  onChange={handleFileUpload}
+                />
+                <label htmlFor="file-input" className="custom-upload-button">
+                  Choose File
+                </label>
+              </div>
+            )}
           </div>
         </div>
       )}

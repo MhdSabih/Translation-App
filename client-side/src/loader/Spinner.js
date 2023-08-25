@@ -1,12 +1,12 @@
 import React from "react";
 import { Vortex } from "react-loader-spinner";
 
-const Spinner = () => {
+const Spinner = ({isLoad}) => {
   return (
     <Vortex
-      visible={true}
-      height="50"
-      width="50"
+      visible={isLoad}
+      height="30"
+      width="30"
       ariaLabel="vortex-loading"
       wrapperStyle={{}}
       wrapperClass="vortex-wrapper"

@@ -5,6 +5,7 @@ import Contact from "./pages/Contact";
 import About from "./pages/About";
 import TranslatorArea from "./components/TranslatorArea";
 import DocumentTranslator from "./components/DocumentTranslator";
+// import Spinner from "./loader/Loader";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
+          {/* <Route path="/" element={<Spinner />} /> */}
           <Route path="/home" element={<TranslatorArea />} />
           <Route path="/doc-scanner" element={<DocumentTranslator />} />
           <Route path="/about" element={<About />} />

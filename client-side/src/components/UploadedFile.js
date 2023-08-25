@@ -9,7 +9,6 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 const UploadedFile = ({ selectedFile, handleFileRemove }) => {
   const [numPages, setNumPages] = useState(null);
-  // const [extractedText, setExtractedText] = useState(null);
   const [translatedText, setTranslatedText] = useState(null);
   const [targetLang, setTargetLang] = useState(null);
   const [onClickOfTranslate, setonClickOfTranslate] = useState(false);

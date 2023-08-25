@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { createWorker } from "tesseract.js";
 import { Document, Page, pdfjs } from "react-pdf";
 import TranslatedText from "./translated-text/TranslatedText";
@@ -9,11 +10,15 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 const UploadedFile = ({ selectedFile, handleFileRemove }) => {
   const [numPages, setNumPages] = useState(null);
   const [extractedText, setExtractedText] = useState(null);
-  const [onClickOfScan, setonClickOfScan] = useState(false);
+  const [onClickOfTranslate, setonClickOfTranslate] = useState(false);
 
   const textToImage = async () => {
+    if(!selectedFile){
+      alert('select a file');
+    }
+    else{
     const worker = await createWorker();
-    setonClickOfScan(true);
+    setonClickOfTranslate(true);
     await worker.loadLanguage("eng");
     await worker.initialize("eng");
     const {
@@ -21,7 +26,23 @@ const UploadedFile = ({ selectedFile, handleFileRemove }) => {
     } = await worker.recognize(URL.createObjectURL(selectedFile));
     await worker.terminate();
     setExtractedText(text);
+  }
     // console.log(text);
+  };
+  const fetchResponse = async () => {
+    try {
+      textToImage();
+      const requestBody = {
+        currentLang: extractedText,
+        targetLang: "",
+      };
+      const { data } = await axios.post(
+        `http://localhost:5000/api/translator`,
+        requestBody
+      );
+    } catch (error) {
+      console.log("Error in fetching response");
+    }
   };
 
   const onDocumentLoadSuccess = ({ numPages }) => {
@@ -51,7 +72,7 @@ const UploadedFile = ({ selectedFile, handleFileRemove }) => {
           )}
         </div>
         <div className="border">{/* border */}</div>
-        {onClickOfScan ? (
+        {onClickOfTranslate ? (
           <TranslatedText extractedText={extractedText} />
         ) : (
           <div className="img-side-area">
@@ -64,7 +85,7 @@ const UploadedFile = ({ selectedFile, handleFileRemove }) => {
               />
               <div className="btn-container">
                 <div className="scan-btn">
-                  <button className="button" onClick={textToImage}>
+                  <button className="button" onClick={fetchResponse}>
                     translate
                   </button>
                 </div>

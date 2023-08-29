@@ -87,7 +87,7 @@ const UploadedFile = ({ selectedFile, handleFileRemove }) => {
             />
           )}
         </div>
-        <div className="border">{/* border */}</div>
+        <div className="border">{/* border here */}</div>
         {onClickOfTranslate ? (
           <TranslatedText translatedText={translatedText} isLoad={isLoad}/>
         ) : (

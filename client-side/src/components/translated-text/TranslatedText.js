@@ -9,7 +9,7 @@ const TranslatedText = ({ translatedText, isLoad }) => {
         <Spinner />
       ) : (
         <div className="dummy-text-area">
-          <h1 className="main-heading">Translation Success!</h1>
+          <h1 className="main-heading">Translation Completed!</h1>
           <p>{translatedText}</p>
         </div>
       )}
